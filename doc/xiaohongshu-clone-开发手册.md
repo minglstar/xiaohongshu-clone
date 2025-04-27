@@ -18,6 +18,7 @@
 ## 技术栈
 
 ### 前端
+
 - **Next.js 15.3.1**: 基于React的全栈框架
 - **React 19.0.0**: 用户界面库
 - **TypeScript**: 类型安全的JavaScript超集
@@ -25,12 +26,14 @@
 - **shadcn/ui**: 基于Radix UI的组件库
 
 ### 后端
+
 - **Next.js API Routes**: 服务端API实现
 - **Prisma ORM**: 数据库访问层
 - **NextAuth.js**: 认证系统
 - **PostgreSQL**: 关系型数据库
 
 ### 开发工具
+
 - **ESLint**: 代码质量检查
 - **TypeScript**: 类型检查
 
@@ -45,6 +48,7 @@ npx create-next-app@latest .
 ```
 
 在创建过程中选择以下配置：
+
 - 使用TypeScript: Yes
 - 使用ESLint: Yes
 - 使用Tailwind CSS: Yes
@@ -60,12 +64,13 @@ npx create-next-app@latest .
 项目使用Tailwind CSS v4，配置已在项目初始化时完成。Tailwind CSS v4使用新的配置方式，通过PostCSS插件完成，不再需要单独的`tailwind.config.js`文件。
 
 配置文件：`postcss.config.mjs`
+
 ```javascript
 const config = {
-  plugins: ["@tailwindcss/postcss"],
-};
+  plugins: ['@tailwindcss/postcss'],
+}
 
-export default config;
+export default config
 ```
 
 ### 4. shadcn/UI组件库安装
@@ -137,7 +142,7 @@ DATABASE_URL="postgresql://postgres:yourpassword@localhost:5432/xiaohongshu-clon
 ```bash
 npx prisma generate
 npx prisma migrate dev --name init
- ```
+```
 
 ### 8. NextAuth.js认证配置
 
@@ -269,10 +274,10 @@ model Tag {
 
 ```typescript
 // src/app/api/auth/[...nextauth]/route.ts
-import NextAuth from "next-auth"
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import { prisma } from "@/lib/prisma"
-import CredentialsProvider from "next-auth/providers/credentials"
+import NextAuth from 'next-auth'
+import { PrismaAdapter } from '@auth/prisma-adapter'
+import { prisma } from '@/lib/prisma'
+import CredentialsProvider from 'next-auth/providers/credentials'
 
 /**
  * NextAuth处理程序
@@ -282,10 +287,10 @@ const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
-      name: "Phone",
+      name: 'Phone',
       credentials: {
-        phone: { label: "手机号", type: "text" },
-        code: { label: "验证码", type: "text" }
+        phone: { label: '手机号', type: 'text' },
+        code: { label: '验证码', type: 'text' },
       },
       async authorize(credentials) {
         if (!credentials?.phone || !credentials?.code) {
@@ -294,11 +299,11 @@ const handler = NextAuth({
 
         // 验证手机号和验证码
         // 实际实现中需要与短信验证服务集成
-        
+
         const user = await prisma.user.findUnique({
           where: {
-            phone: credentials.phone
-          }
+            phone: credentials.phone,
+          },
         })
 
         // 如果用户不存在，创建新用户
@@ -307,14 +312,14 @@ const handler = NextAuth({
         }
 
         return user
-      }
-    })
+      },
+    }),
   ],
   session: {
-    strategy: "jwt"
+    strategy: 'jwt',
   },
   pages: {
-    signIn: "/login",
+    signIn: '/login',
   },
   callbacks: {
     async session({ session, token }) {
@@ -322,8 +327,8 @@ const handler = NextAuth({
         session.user.id = token.sub!
       }
       return session
-    }
-  }
+    },
+  },
 })
 
 export { handler as GET, handler as POST }
