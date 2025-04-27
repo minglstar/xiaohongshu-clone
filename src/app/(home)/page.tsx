@@ -1,5 +1,10 @@
 import { Button } from '@/components/ui/button'
+import Navbar from '@/components/layout/Navbar'
 
 export default function Home() {
-  return <Button>Xiaohongshu-clone</Button>
+  return (
+    <div>
+      <Navbar />
+    </div>
+  )
 }

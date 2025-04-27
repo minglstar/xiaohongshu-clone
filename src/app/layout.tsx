@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Xiaohongshu-clone',
-  description: 'Final Fantacy',
+  description: 'Final Fantasy',
 }
 
 export default function RootLayout({
