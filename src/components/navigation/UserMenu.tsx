@@ -2,6 +2,7 @@
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 import { Button } from '@/components/ui/button'
+import { ArrowUpRight } from 'lucide-react'
 
 const menus = [
   {
@@ -41,12 +42,12 @@ const UserMenu = () => {
           >
             <div className="flex flex-col space-y-1">
               {menu.items.map((item, index) => (
-                <button
-                  key={index}
-                  className="cursor-pointer rounded-md px-2 py-2 text-start text-xs text-gray-500 hover:bg-gray-50"
-                >
-                  {item}
-                </button>
+                <div className="group flex cursor-pointer flex-row items-center justify-between rounded-md hover:bg-gray-50">
+                  <button key={index} className="px-2 py-2 text-start text-xs text-gray-500">
+                    {item}
+                  </button>
+                  <ArrowUpRight className="h-5 w-5 text-gray-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                </div>
               ))}
             </div>
           </HoverCardContent>
@@ -57,32 +58,3 @@ const UserMenu = () => {
 }
 
 export default UserMenu
-
-//   <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-//     <DropdownMenuTrigger onMouseEnter={() => setIsOpen(true)} asChild>
-// <Button
-//   variant="outline"
-//   className="rounded-full border-none bg-white px-4 py-2 text-xs text-gray-500 shadow-none hover:bg-gray-100 hover:text-gray-600 focus-visible:ring-0 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-600"
-// >
-//   {title}
-// </Button>
-//     </DropdownMenuTrigger>
-//     <DropdownMenuContent
-//       className="mt-2 w-40 rounded-lg border-none bg-white p-2 shadow-lg"
-//       onMouseLeave={() => setIsOpen(false)}
-//       align="center"
-//     >
-//       <DropdownMenuGroup>
-//         {items.length > 0 &&
-//           items.map((item, ind) => (
-//             <DropdownMenuItem
-//               key={ind}
-//               className="cursor-pointer rounded-md py-2 text-xs hover:bg-gray-50"
-//             >
-//               {item}
-//             </DropdownMenuItem>
-//           ))}
-//       </DropdownMenuGroup>
-//     </DropdownMenuContent>
-//   </DropdownMenu>
-// )
