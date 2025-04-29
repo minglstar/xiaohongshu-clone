@@ -24,7 +24,7 @@ const menus = [
  */
 const UserMenu = () => {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center">
       {menus.map(menu => (
         <HoverCard key={menu.key} openDelay={0} closeDelay={100}>
           <HoverCardTrigger asChild>
@@ -38,7 +38,6 @@ const UserMenu = () => {
           <HoverCardContent
             className="w-32 rounded-lg border-none bg-white p-2 shadow-lg"
             align="center"
-            // sideOffset={5}
           >
             <div className="flex flex-col space-y-1">
               {menu.items.map((item, index) => (

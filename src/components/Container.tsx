@@ -19,10 +19,7 @@ interface ContainerProps {
  */
 export default function Container({ children, className = '', style = {} }: ContainerProps) {
   return (
-    <div
-      className={cn('mx-auto max-w-[2520px] px-4 sm:px-2 md:px-10 xl:px-20', className)}
-      style={style}
-    >
+    <div className={cn('mx-auto max-w-[2520px] p-4', className)} style={style}>
       {children}
     </div>
   )
