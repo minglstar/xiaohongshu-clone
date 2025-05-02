@@ -69,15 +69,22 @@ const SidebarItem = ({
         onClick={onClick}
         className={cn(
           'flex items-center justify-between rounded-full px-4 py-3 text-[0.8rem] leading-tight font-semibold transition-colors',
-          isActive 
-            ? 'bg-gray-100 font-medium dark:bg-gray-800' 
+          isActive
+            ? 'bg-gray-100 font-medium dark:bg-gray-800'
             : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
         )}
       >
         <div className="flex items-center gap-3">
           {/* 图标和文本的容器 */}
           {/* 条件渲染图标 */}
-          {Icon && <Icon size={16} className={isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-400'} />}
+          {Icon && (
+            <Icon
+              size={16}
+              className={
+                isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-400'
+              }
+            />
+          )}
           {/* 文本 */}
           <span className={isActive ? 'font-medium' : ''}>{label}</span>
         </div>
