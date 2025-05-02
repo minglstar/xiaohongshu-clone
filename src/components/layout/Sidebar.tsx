@@ -1,20 +1,33 @@
 'use client'
 
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { cn } from '@/lib/utils'
+import {
   Bell,
   ChevronDown,
   Home,
+  Menu,
+  MessageCircle,
   PlusSquare,
-  ThumbsUp,
   Sprout,
   Star,
-  MessageCircle,
+  ThumbsUp,
 } from 'lucide-react'
-import Container from '../Container'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import { Button } from '../ui/button'
+import { ModeToggle } from '../ui/mode-toggle'
 
 const mainNaviItems = [
   {
@@ -55,18 +68,20 @@ const SidebarItem = ({
         href={href}
         onClick={onClick}
         className={cn(
-          'flex items-center justify-between rounded-full px-4 py-3 transition-colors',
-          isActive ? 'bg-gray-100 font-medium' : 'text-gray-700 hover:bg-gray-50'
+          'flex items-center justify-between rounded-full px-4 py-3 text-[0.8rem] leading-tight font-semibold transition-colors',
+          isActive 
+            ? 'bg-gray-100 font-medium dark:bg-gray-800' 
+            : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
         )}
       >
         <div className="flex items-center gap-3">
           {/* 图标和文本的容器 */}
           {/* 条件渲染图标 */}
-          {Icon && <Icon size={20} className={isActive ? 'text-black' : 'text-gray-700'} />}
+          {Icon && <Icon size={16} className={isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-400'} />}
           {/* 文本 */}
           <span className={isActive ? 'font-medium' : ''}>{label}</span>
         </div>
-        {hasChildren && <ChevronDown size={16} className="text-gray-600" />}
+        {hasChildren && <ChevronDown size={16} className="text-gray-600 dark:text-gray-400" />}
       </Link>
     </li>
   )
@@ -97,12 +112,12 @@ const MainNav = ({ onItemClick }: { onItemClick?: () => void }) => {
 const LoginPrompt = () => {
   return (
     <div className="mt-4 space-y-4">
-      <Button className="w-full rounded-full bg-red-500 py-6 text-white hover:bg-red-600">
+      <Button className="w-full rounded-full bg-red-500 py-2 text-white hover:bg-red-600">
         登录
       </Button>
-      <div className="shadow:sm rounded-xl border-[1px] border-gray-200 p-2 text-[0.9rem] text-gray-500">
-        <p className="m-[2px] pl-1 text-black">马上登录即可</p>
-        <ul>
+      <div className="shadow:sm rounded-xl border-[1px] border-gray-200 p-1 text-[0.7rem] text-gray-500 dark:border-gray-700 dark:text-gray-400">
+        <p className="m-[2px] pl-1 font-normal text-gray-700 dark:text-gray-300">马上登录即可</p>
+        <ul className="font-normal">
           <li className="flex items-center">
             <ThumbsUp size={20} className="m-[2px] p-1" />
             <span>刷到更懂你的优质内容</span>
@@ -125,18 +140,89 @@ const LoginPrompt = () => {
   )
 }
 
-const FooterNav = ({ onItemClick }: { onItemClick?: () => void }) => {
-  return <>// dripmenu 向上drop</>
+const FooterNav = () => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          className={cn(
+            'flex w-full items-center justify-between rounded-full px-4 py-3 text-[0.8rem] leading-tight font-semibold transition-colors',
+            'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
+          )}
+        >
+          <div className="flex items-center gap-3">
+            <Menu size={16} className="text-gray-700 dark:text-gray-400" />
+            <span>更多</span>
+          </div>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        side="top"
+        align="start"
+        alignOffset={0}
+        className="w-[calc(16px+calc((100vw-7*32px)/6*1))] text-[0.9rem] font-light text-gray-500"
+      >
+        <DropdownMenuGroup>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>关于小红书</DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                <DropdownMenuItem>1</DropdownMenuItem>
+                <DropdownMenuItem>2</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>3...</DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>隐私 协议</DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                <DropdownMenuItem>1</DropdownMenuItem>
+                <DropdownMenuItem>2</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>3...</DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuItem>帮助与客服</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem className="text-[0.6rem] text-gray-400">访问方式</DropdownMenuItem>
+          <DropdownMenuItem>键盘快捷键</DropdownMenuItem>
+          <DropdownMenuItem>添加小红书到桌面</DropdownMenuItem>
+          <DropdownMenuItem>打开小窗模式</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem className="text-[0.6rem] text-gray-400">设置</DropdownMenuItem>
+          <DropdownMenuItem className="hover:bg-transparent focus:bg-transparent">
+            <div className="flex w-full items-center justify-between">
+              <span>深色模式</span>
+              <ModeToggle />
+            </div>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
 }
 
 const Sidebar = () => {
   return (
-    <Container>
-      <div className="w-55">
-        <MainNav />
-        <LoginPrompt />
+    <aside className="ml-4 h-full w-[calc(16px+calc((100vw-7*32px)/6*1))] flex-shrink-0 overflow-y-auto border-r border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-950">
+      <div className="flex h-full flex-col">
+        <div className="w-full pt-2">
+          <MainNav />
+          <LoginPrompt />
+        </div>
+        <div className="mt-auto mb-4 w-full">
+          <FooterNav />
+        </div>
       </div>
-    </Container>
+    </aside>
   )
 }
 
