@@ -1,9 +1,8 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '../ui/button'
-import Link from 'next/link'
 
 // 小红书频道URL格式: https://www.xiaohongshu.com/explore?channel_id=homefeed.[tag]
 // 我们使用相似的格式: /?channel_id=homefeed.[tag]
@@ -12,7 +11,7 @@ import Link from 'next/link'
  * 频道数据配置
  * 包含推荐和各个分类频道
  */
-const channels = [
+export const channels = [
   {
     label: '推荐',
     channelId: 'homefeed_recommend',
@@ -77,9 +76,9 @@ const ChannelItem = ({
       variant="ghost"
       onClick={onClick}
       className={cn(
-        'cursor-pointer rounded-full text-[0.8rem] hover:bg-gray-50 dark:hover:bg-gray-800',
-        isSelected 
-          ? 'bg-gray-200 font-semibold text-black dark:bg-gray-800 dark:text-white' 
+        'cursor-pointer rounded-full text-[1rem] hover:bg-gray-100 dark:hover:bg-gray-800',
+        isSelected
+          ? 'bg-gray-100 font-semibold text-gray-700 dark:bg-gray-800 dark:text-white'
           : 'font-normal text-gray-500 dark:text-gray-400'
       )}
     >
@@ -98,14 +97,13 @@ const ChannelBar = ({ onItemClick }: { onItemClick?: () => void }) => {
   const currentChannelId = searchParams.get('channel_id') || 'homefeed_recommend'
 
   return (
-    <div className="flex h-[40px] items-center overflow-x-auto pl-2 scrollbar-hide">
+    <div className="scrollbar-hide flex h-[40px] items-center overflow-x-auto pl-2">
       {channels.map(channel => (
         <ChannelItem
           key={channel.channelId}
           label={channel.label}
           isSelected={currentChannelId === channel.channelId}
           onClick={() => {
-            console.log('点击了频道:', channel.label, '频道ID:', channel.channelId)
             // 导航到对应频道
             router.push(`/?channel_id=${channel.channelId}`)
             if (onItemClick) onItemClick()

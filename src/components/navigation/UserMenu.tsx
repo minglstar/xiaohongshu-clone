@@ -31,7 +31,7 @@ const UserMenu = () => {
             <Button
               key={menu.label}
               variant="outline"
-              className="rounded-full border-none bg-white px-4 py-2 text-xs text-gray-500 shadow-none hover:bg-gray-100 hover:text-gray-600 focus-visible:ring-0 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-600"
+              className="rounded-full border-none bg-white px-4 py-2 text-gray-500 shadow-none hover:bg-gray-100 hover:text-gray-600 focus-visible:ring-0 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-600"
             >
               {menu.label}
             </Button>

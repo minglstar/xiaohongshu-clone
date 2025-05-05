@@ -68,7 +68,7 @@ const SidebarItem = ({
         href={href}
         onClick={onClick}
         className={cn(
-          'flex items-center justify-between rounded-full px-4 py-3 text-[0.8rem] leading-tight font-semibold transition-colors',
+          'flex items-center justify-between rounded-full px-4 py-3 leading-tight font-semibold transition-colors',
           isActive
             ? 'bg-gray-100 font-medium dark:bg-gray-800'
             : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
@@ -79,7 +79,7 @@ const SidebarItem = ({
           {/* 条件渲染图标 */}
           {Icon && (
             <Icon
-              size={16}
+              size={20}
               className={
                 isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-400'
               }
@@ -88,7 +88,7 @@ const SidebarItem = ({
           {/* 文本 */}
           <span className={isActive ? 'font-medium' : ''}>{label}</span>
         </div>
-        {hasChildren && <ChevronDown size={16} className="text-gray-600 dark:text-gray-400" />}
+        {hasChildren && <ChevronDown size={20} className="text-gray-600 dark:text-gray-400" />}
       </Link>
     </li>
   )
@@ -118,12 +118,12 @@ const MainNav = ({ onItemClick }: { onItemClick?: () => void }) => {
 
 const LoginPrompt = () => {
   return (
-    <div className="mt-4 space-y-4">
-      <Button className="w-full rounded-full bg-red-500 py-2 text-white hover:bg-red-600">
+    <div className="mt-2 space-y-2">
+      <Button className="h-[48px] w-full rounded-full bg-red-500 py-0 text-[1rem] font-semibold text-white hover:bg-red-600">
         登录
       </Button>
-      <div className="shadow:sm rounded-xl border-[1px] border-gray-200 p-1 text-[0.7rem] text-gray-500 dark:border-gray-700 dark:text-gray-400">
-        <p className="m-[2px] pl-1 font-normal text-gray-700 dark:text-gray-300">马上登录即可</p>
+      <div className="shadow:sm rounded-xl border-[1px] border-gray-200 p-3 text-[0.8rem] text-gray-500 dark:border-gray-700 dark:text-gray-400">
+        <p className="m-[2px] pl-1 text-gray-900 dark:text-gray-300">马上登录即可</p>
         <ul className="font-normal">
           <li className="flex items-center">
             <ThumbsUp size={20} className="m-[2px] p-1" />
@@ -154,7 +154,7 @@ const FooterNav = () => {
         <Button
           variant="ghost"
           className={cn(
-            'flex w-full items-center justify-between rounded-full px-4 py-3 text-[0.8rem] leading-tight font-semibold transition-colors',
+            'flex w-full items-center justify-between rounded-full px-4 py-3 text-[1rem] leading-tight font-semibold transition-colors',
             'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
           )}
         >
