@@ -122,25 +122,30 @@ const LoginPrompt = () => {
       <Button className="h-[48px] w-full rounded-full bg-red-500 py-0 text-[1rem] font-semibold text-white hover:bg-red-600">
         登录
       </Button>
-      <div className="shadow:sm rounded-xl border-[1px] border-gray-200 p-3 text-[0.8rem] text-gray-500 dark:border-gray-700 dark:text-gray-400">
-        <p className="m-[2px] pl-1 text-gray-900 dark:text-gray-300">马上登录即可</p>
+      <div
+        className={cn(
+          'shadow:sm rounded-xl border-[1px] border-gray-200 p-3 text-[0.8rem] text-gray-500',
+          'dark:border-gray-700 dark:text-gray-400'
+        )}
+      >
+        <p className="text-gray-900 dark:text-gray-300">马上登录即可</p>
         <ul className="font-normal">
           <li className="flex items-center">
-            <ThumbsUp size={20} className="m-[2px] p-1" />
-            <span>刷到更懂你的优质内容</span>
+            <ThumbsUp size={14} />
+            <span className="ml-0.5 p-0.5">刷到更懂你的优质内容</span>
           </li>
-          <div className="flex items-center">
-            <Sprout size={20} className="m-[2px] p-1" />
-            <li>搜索最新种草、拔草信息</li>
-          </div>
-          <div className="flex items-center">
-            <Star size={20} className="m-[2px] p-1" />
-            <li>查看收藏、点赞的笔记</li>
-          </div>
-          <div className="flex items-center">
-            <MessageCircle size={20} className="m-[2px] p-1" />
-            <li>与他人更好地互动、交流</li>
-          </div>
+          <li className="flex items-center">
+            <Sprout size={14} />
+            <span className="ml-0.5 p-0.5">搜索最新种草、拔草信息</span>
+          </li>
+          <li className="flex items-center">
+            <Star size={14} />
+            <span className="ml-0.5 p-0.5">查看收藏、点赞的笔记</span>
+          </li>
+          <li className="flex items-center">
+            <MessageCircle size={14} />
+            <span className="ml-0.5 p-0.5">与他人更好地互动、交流</span>
+          </li>
         </ul>
       </div>
     </div>
@@ -219,7 +224,12 @@ const FooterNav = () => {
 
 const Sidebar = () => {
   return (
-    <aside className="ml-4 h-full w-[calc(16px+calc((100vw-7*32px)/6*1))] flex-shrink-0 overflow-y-auto border-r border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-950">
+    <aside
+      className={cn(
+        'ml-4 hidden h-full flex-shrink-0 overflow-hidden border-r border-gray-100 bg-white md:block dark:border-gray-800 dark:bg-gray-950'
+        // 'w-[calc(16.67vw - 21.33px)]'
+      )}
+    >
       <div className="flex h-full flex-col">
         <div className="w-full pt-2">
           <MainNav />

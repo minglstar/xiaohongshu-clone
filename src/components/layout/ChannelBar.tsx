@@ -76,7 +76,8 @@ const ChannelItem = ({
       variant="ghost"
       onClick={onClick}
       className={cn(
-        'cursor-pointer rounded-full text-[1rem] hover:bg-gray-100 dark:hover:bg-gray-800',
+        'cursor-pointer rounded-full text-[1rem] hover:bg-gray-100',
+        'dark:hover:bg-gray-800',
         isSelected
           ? 'bg-gray-100 font-semibold text-gray-700 dark:bg-gray-800 dark:text-white'
           : 'font-normal text-gray-500 dark:text-gray-400'
@@ -97,7 +98,8 @@ const ChannelBar = ({ onItemClick }: { onItemClick?: () => void }) => {
   const currentChannelId = searchParams.get('channel_id') || 'homefeed_recommend'
 
   return (
-    <div className="scrollbar-hide flex h-[40px] items-center overflow-x-auto pl-2">
+    // todo: 滑不动
+    <div className="flex h-[40px] items-center scroll-auto pl-2">
       {channels.map(channel => (
         <ChannelItem
           key={channel.channelId}

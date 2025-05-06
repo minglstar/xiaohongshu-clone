@@ -10,6 +10,7 @@ const Logo = () => {
       onClick={() => router.push('/')}
       src="/images/logo.png"
       alt="Xiaohongshu"
+      className="cursor-pointer"
       height={32}
       width={68}
     />
