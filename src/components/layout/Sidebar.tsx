@@ -13,23 +13,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import {
-  Bell,
-  ChevronDown,
-  Home,
-  Menu,
-  MessageCircle,
-  PlusSquare,
-  Sprout,
-  Star,
-  ThumbsUp,
-} from 'lucide-react'
+import { Bell, Home, Menu, MessageCircle, PlusSquare, Sprout, Star, ThumbsUp } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '../ui/button'
 import { ModeToggle } from '../ui/mode-toggle'
 
-const mainNaviItems = [
+const sideNavItems = [
   {
     icon: Home,
     label: '发现',
@@ -47,12 +37,11 @@ const mainNaviItems = [
   },
 ]
 
-const SidebarItem = ({
+const SideNavItem = ({
   icon: Icon,
   label,
   href,
   isActive,
-  hasChildren,
   onClick,
 }: {
   icon?: React.ElementType // 可选的图标组件
@@ -63,117 +52,58 @@ const SidebarItem = ({
   onClick?: () => void // 点击事件处理函数
 }) => {
   return (
-    <li>
+    <li
+      className={cn(
+        'mb-2 min-h-[48px] cursor-pointer rounded-full leading-tight font-semibold transition-colors',
+        'flex items-center justify-between pl-4',
+        isActive
+          ? 'bg-gray-100 font-medium dark:bg-gray-800'
+          : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
+      )}
+    >
       <Link
         href={href}
         onClick={onClick}
-        className={cn(
-          'flex items-center justify-between rounded-full px-4 py-3 leading-tight font-semibold transition-colors',
-          isActive
-            ? 'bg-gray-100 font-medium dark:bg-gray-800'
-            : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
-        )}
+        className="flex h-[48px] w-full items-center text-[12px] font-semibold"
       >
-        <div className="flex items-center gap-3">
-          {/* 图标和文本的容器 */}
-          {/* 条件渲染图标 */}
-          {Icon && (
-            <Icon
-              size={20}
-              className={
-                isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-400'
-              }
-            />
-          )}
-          {/* 文本 */}
-          <span className={isActive ? 'font-medium' : ''}>{label}</span>
-        </div>
-        {hasChildren && <ChevronDown size={20} className="text-gray-600 dark:text-gray-400" />}
+        {/* 图标和文本的容器 */}
+        {/* 条件渲染图标 */}
+        {Icon && (
+          <Icon
+            size={24}
+            className={isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-400'}
+          />
+        )}
+        {/* 文本 */}
+        <span className={cn('ml-3 text-[16px] font-semibold', isActive ? 'font-medium' : '')}>
+          {label}
+        </span>
       </Link>
     </li>
   )
 }
 
-/**
- * 主导航组件
- */
-const MainNav = ({ onItemClick }: { onItemClick?: () => void }) => {
-  const pathname = usePathname()
-
-  return (
-    <ul className="space-y-1">
-      {mainNaviItems.map(naviItem => (
-        <SidebarItem
-          key={naviItem.href}
-          icon={naviItem.icon}
-          label={naviItem.label}
-          href={naviItem.href}
-          isActive={pathname === naviItem.href}
-          onClick={onItemClick}
-        />
-      ))}
-    </ul>
-  )
-}
-
-const LoginPrompt = () => {
-  return (
-    <div className="mt-2 space-y-2">
-      <Button className="h-[48px] w-full rounded-full bg-red-500 py-0 text-[1rem] font-semibold text-white hover:bg-red-600">
-        登录
-      </Button>
-      <div
-        className={cn(
-          'shadow:sm rounded-xl border-[1px] border-gray-200 p-3 text-[0.8rem] text-gray-500',
-          'dark:border-gray-700 dark:text-gray-400'
-        )}
-      >
-        <p className="text-gray-900 dark:text-gray-300">马上登录即可</p>
-        <ul className="font-normal">
-          <li className="flex items-center">
-            <ThumbsUp size={14} />
-            <span className="ml-0.5 p-0.5">刷到更懂你的优质内容</span>
-          </li>
-          <li className="flex items-center">
-            <Sprout size={14} />
-            <span className="ml-0.5 p-0.5">搜索最新种草、拔草信息</span>
-          </li>
-          <li className="flex items-center">
-            <Star size={14} />
-            <span className="ml-0.5 p-0.5">查看收藏、点赞的笔记</span>
-          </li>
-          <li className="flex items-center">
-            <MessageCircle size={14} />
-            <span className="ml-0.5 p-0.5">与他人更好地互动、交流</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  )
-}
-
-const FooterNav = () => {
+const ExploreGuideMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className={cn(
-            'flex w-full items-center justify-between rounded-full px-4 py-3 text-[1rem] leading-tight font-semibold transition-colors',
-            'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
-          )}
-        >
-          <div className="flex items-center gap-3">
-            <Menu size={16} className="text-gray-700 dark:text-gray-400" />
-            <span>更多</span>
+        <div className="absolute bottom-0 inline-block w-full text-[16px] text-gray-700">
+          <div
+            className={cn(
+              'relative mb-5 flex h-[48px] w-full cursor-pointer items-center rounded-full font-semibold select-none hover:bg-gray-50',
+              'dark:text-gray-300 dark:hover:bg-gray-800'
+            )}
+          >
+            <Menu size={24} className="mr-3 ml-4" />
+            更多
           </div>
-        </Button>
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         side="top"
         align="start"
         alignOffset={0}
-        className="w-[calc(16px+calc((100vw-7*32px)/6*1))] text-[0.9rem] font-light text-gray-500"
+        className="w-[220px] font-light text-gray-700"
       >
         <DropdownMenuGroup>
           <DropdownMenuSub>
@@ -182,7 +112,7 @@ const FooterNav = () => {
               <DropdownMenuSubContent>
                 <DropdownMenuItem>1</DropdownMenuItem>
                 <DropdownMenuItem>2</DropdownMenuItem>
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className="border-t-[1px] border-solid" />
                 <DropdownMenuItem>3...</DropdownMenuItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
@@ -202,14 +132,14 @@ const FooterNav = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="text-[0.6rem] text-gray-400">访问方式</DropdownMenuItem>
+          <DropdownMenuItem className="text-[12px] text-gray-400">访问方式</DropdownMenuItem>
           <DropdownMenuItem>键盘快捷键</DropdownMenuItem>
           <DropdownMenuItem>添加小红书到桌面</DropdownMenuItem>
           <DropdownMenuItem>打开小窗模式</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="text-[0.6rem] text-gray-400">设置</DropdownMenuItem>
+          <DropdownMenuItem className="text-[12px] text-gray-400">设置</DropdownMenuItem>
           <DropdownMenuItem className="hover:bg-transparent focus:bg-transparent">
             <div className="flex w-full items-center justify-between">
               <span>深色模式</span>
@@ -223,22 +153,69 @@ const FooterNav = () => {
 }
 
 const Sidebar = () => {
+  const pathname = usePathname()
+
   return (
     <aside
       className={cn(
-        'ml-4 hidden h-full flex-shrink-0 overflow-hidden border-r border-gray-100 bg-white md:block dark:border-gray-800 dark:bg-gray-950'
-        // 'w-[calc(16.67vw - 21.33px)]'
+        // 基础样式
+        'fixed top-[72px] flex h-[calc(100vh-72px)] shrink-0 flex-col overflow-visible bg-white pt-4',
+        'dark:border-gray-800 dark:bg-gray-950',
+        // 响应式显示
+        'hidden md:block',
+        // 固定宽度 - 近似值
+        'ml-3 w-[220px]'
       )}
     >
-      <div className="flex h-full flex-col">
-        <div className="w-full pt-2">
-          <MainNav />
-          <LoginPrompt />
+      {/* 主导航组件: channel-list */}
+      <ul className="m-0 min-h-auto list-none p-0">
+        {sideNavItems.map(naviItem => (
+          <SideNavItem
+            key={naviItem.href}
+            icon={naviItem.icon}
+            label={naviItem.label}
+            href={naviItem.href}
+            isActive={pathname === naviItem.href}
+          />
+        ))}
+        <div>
+          <Button className="mb-2 h-[48px] w-full rounded-full bg-rose-500 py-0 text-[1rem] font-semibold text-white hover:bg-rose-600">
+            登录
+          </Button>
         </div>
-        <div className="mt-auto mb-4 w-full">
-          <FooterNav />
+      </ul>
+      {/* 登录提示: login prompt */}
+      <div
+        className={cn(
+          'z-0 h-[155px] w-full cursor-pointer p-4',
+          'rounded-xl border-[1px] border-solid border-gray-200 bg-white',
+          'dark:border-gray-700 dark:text-gray-400'
+        )}
+      >
+        <p className="mb-3 text-[14px] font-medium text-gray-900 dark:text-gray-300">
+          马上登录即可
+        </p>
+        <div className="mb-2 flex text-gray-500">
+          <ThumbsUp size={16} className="mr-2" />
+          <span className="text-[14px] leading-[120%]">刷到更懂你的优质内容</span>
+        </div>
+        <div className="mb-2 flex text-gray-500">
+          <Sprout size={16} className="mr-2" />
+          <span className="text-[14px] leading-[120%]">搜索最新种草、拔草信息</span>
+        </div>
+        <div className="mb-2 flex text-gray-500">
+          <Star size={16} className="mr-2" />
+          <span className="text-[14px] leading-[120%]">查看收藏、点赞的笔记</span>
+        </div>
+        <div className="mb-2 flex text-gray-500">
+          <MessageCircle size={16} className="mr-2" />
+          <span className="text-[14px] leading-[120%]">与他人更好地互动、交流</span>
         </div>
       </div>
+      {/* 更多: explore guide menu */}
+
+      <ExploreGuideMenu />
+      {/* </div> */}
     </aside>
   )
 }

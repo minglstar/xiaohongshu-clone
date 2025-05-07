@@ -1,8 +1,8 @@
 'use client'
 
+import { Moon, SlidersHorizontal, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { Moon, Sun, SlidersHorizontal } from 'lucide-react'
 
 /**
  * 主题切换组件
