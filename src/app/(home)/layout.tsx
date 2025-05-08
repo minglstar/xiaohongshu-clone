@@ -11,7 +11,6 @@ export default function Layout({
   return (
     <ClientOnly>
       <Navbar />
-      {/* flex flex-1 让元素在弹性容器中自动填充剩余空间，常用于自适应和等分布局 */}
       <Sidebar />
       <ChannelBar />
       <main>{children}</main>

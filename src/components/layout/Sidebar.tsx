@@ -70,7 +70,7 @@ const SideNavItem = ({
         {/* 条件渲染图标 */}
         {Icon && (
           <Icon
-            size={24}
+            size={20}
             className={isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-400'}
           />
         )}
@@ -103,28 +103,31 @@ const ExploreGuideMenu = () => {
         side="top"
         align="start"
         alignOffset={0}
-        className="w-[220px] font-light text-gray-700"
+        className="w-[var(--radix-dropdown-menu-trigger-width)] font-light text-gray-700"
       >
         <DropdownMenuGroup>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>关于小红书</DropdownMenuSubTrigger>
             <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem>1</DropdownMenuItem>
-                <DropdownMenuItem>2</DropdownMenuItem>
-                <DropdownMenuSeparator className="border-t-[1px] border-solid" />
-                <DropdownMenuItem>3...</DropdownMenuItem>
+              <DropdownMenuSubContent className="font-light text-gray-700">
+                <DropdownMenuItem>关于我们</DropdownMenuItem>
+                <DropdownMenuItem>新闻中心</DropdownMenuItem>
+                <DropdownMenuItem>社会责任</DropdownMenuItem>
+                <DropdownMenuItem>加入我们</DropdownMenuItem>
+                <DropdownMenuItem>English</DropdownMenuItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>隐私 协议</DropdownMenuSubTrigger>
             <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem>1</DropdownMenuItem>
-                <DropdownMenuItem>2</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>3...</DropdownMenuItem>
+              <DropdownMenuSubContent className="font-light text-gray-700">
+                <DropdownMenuItem>用户协议</DropdownMenuItem>
+                <DropdownMenuItem>隐私政策</DropdownMenuItem>
+                <DropdownMenuItem>侵权投诉指引</DropdownMenuItem>
+                <DropdownMenuItem>热点规则</DropdownMenuItem>
+                <DropdownMenuItem>社区规范</DropdownMenuItem>
+                <DropdownMenuItem>下载小红书App</DropdownMenuItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
@@ -164,7 +167,7 @@ const Sidebar = () => {
         // 响应式显示
         'hidden md:block',
         // 固定宽度 - 近似值
-        'ml-3 w-[220px]'
+        'ml-4 w-[220px]'
       )}
     >
       {/* 主导航组件: channel-list */}

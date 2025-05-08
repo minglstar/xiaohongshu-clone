@@ -125,7 +125,7 @@ const UserMenu = () => {
 
   return (
     <div className="relative">
-      <div className="absolute top-1/2 right-2 -translate-y-1/2 sm:hidden">
+      <div className="absolute top-1/2 right-2 -translate-y-1/2 md:hidden">
         <MobileUserMenu />
       </div>
       <div className="flex flex-row items-center justify-between">
@@ -137,7 +137,7 @@ const UserMenu = () => {
                 variant="outline"
                 className={cn(
                   'rounded-full border-none bg-white px-4 py-2 text-gray-500 shadow-none hover:bg-gray-100 hover:text-gray-600 focus-visible:ring-0 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-600',
-                  'hidden sm:block'
+                  'hidden md:block'
                 )}
               >
                 {menu.label}
