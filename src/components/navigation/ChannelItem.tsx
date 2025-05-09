@@ -7,7 +7,7 @@ import { Button } from '../ui/button'
  * 频道项组件
  * 显示单个频道按钮，处理选中状态和点击事件
  */
- const ChannelItem = ({
+const ChannelItem = ({
   label,
   isSelected,
   onClick,
@@ -21,8 +21,9 @@ import { Button } from '../ui/button'
       variant="ghost"
       onClick={onClick}
       className={cn(
-        'cursor-pointer rounded-full text-[1rem] hover:bg-gray-100',
+        'rounded-full text-[1rem] hover:bg-gray-100',
         'dark:hover:bg-gray-800',
+        'flex h-[40px] cursor-pointer items-center justify-center px-4 select-none',
         isSelected
           ? 'bg-gray-100 font-semibold text-gray-700 dark:bg-gray-800 dark:text-white'
           : 'font-normal text-gray-500 dark:text-gray-400'

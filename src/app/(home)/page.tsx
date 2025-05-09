@@ -1,8 +1,8 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { channels } from '@/components/layout/ChannelNav'
-
+import ChannelNav, { channels } from '@/components/layout/ChannelNav'
+import MainContent from '@/components/layout/MainContent'
 /**
  * 主页面组件
  * 根据频道ID加载不同内容
@@ -13,15 +13,14 @@ export default function Home() {
 
   // 根据 channelId 加载不同内容
   return (
-    <div className="channel-content">
-      <h1 className="sr-only">小红书 - {getChannelName(channelId)}</h1>
-
+    <MainContent>
+      <ChannelNav />
       {/* 根据频道ID渲染不同内容 */}
       <div className="p-4">
         <h2 className="mb-4 text-xl font-bold">当前频道: {getChannelName(channelId)}</h2>
         {/* 这里放置频道内容 */}
       </div>
-    </div>
+    </MainContent>
   )
 }
 

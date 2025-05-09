@@ -1,6 +1,7 @@
-import ClientOnly from '@/components/common/ClientSideRenderer'
+'use client'
+
+import ClientSideRenderer from '@/components/common/ClientSideRenderer'
 import { BottomMenu } from '@/components/layout/BottomMenu'
-import ChannelBar from '@/components/layout/ChannelNav'
 import Navbar from '@/components/layout/Navbar'
 import Sidebar from '@/components/layout/Sidebar'
 
@@ -10,12 +11,11 @@ export default function Layout({
   children: React.ReactNode
 }>) {
   return (
-    <ClientOnly>
+    <ClientSideRenderer>
       <Navbar />
       <Sidebar />
-      <ChannelBar />
       <BottomMenu />
       <main>{children}</main>
-    </ClientOnly>
+    </ClientSideRenderer>
   )
 }

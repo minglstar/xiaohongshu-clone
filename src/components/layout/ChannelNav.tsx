@@ -68,19 +68,28 @@ const ChannelNav = ({ onItemClick }: { onItemClick?: () => void }) => {
 
   return (
     // todo: 滑不动
-    <div className="flex h-[40px] items-center scroll-auto pl-2">
-      {channels.map(channel => (
-        <ChannelItem
-          key={channel.channelId}
-          label={channel.label}
-          isSelected={currentChannelId === channel.channelId}
-          onClick={() => {
-            // 导航到对应频道
-            router.push(`/?channel_id=${channel.channelId}`)
-            if (onItemClick) onItemClick()
-          }}
-        />
-      ))}
+    // todo: width: var(--feeds-width);
+    <div
+      className="flex h-[72px] items-center overflow-hidden bg-transparent text-[16px] whitespace-nowrap"
+      style={{ color: '--xhsc-color-secondary-label' }}
+    >
+      <div
+        className="flex overflow-x-scroll overflow-y-hidden whitespace-nowrap"
+        style={{ color: '--xhsc-color-secondary-label' }}
+      >
+        {channels.map(channel => (
+          <ChannelItem
+            key={channel.channelId}
+            label={channel.label}
+            isSelected={currentChannelId === channel.channelId}
+            onClick={() => {
+              // 导航到对应频道
+              router.push(`/?channel_id=${channel.channelId}`)
+              if (onItemClick) onItemClick()
+            }}
+          />
+        ))}
+      </div>
     </div>
   )
 }

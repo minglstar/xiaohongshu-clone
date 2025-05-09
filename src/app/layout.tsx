@@ -1,7 +1,7 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { ThemeProvider } from 'next-themes'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from 'next-themes'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,7 +16,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Xiaohongshu-clone',
   description: 'Final Fantasy',
-  viewport: 'width=device-width, initial-scale=1, viewport-fit=cover', // env(safe-area-inset-bottom)
+}
+
+// 单独导出viewport配置
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover', // env(safe-area-inset-bottom)
 }
 
 export default function RootLayout({
@@ -33,7 +39,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div id="global" className="layout limit">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
