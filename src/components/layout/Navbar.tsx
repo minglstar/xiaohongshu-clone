@@ -38,11 +38,11 @@ const Navbar = () => {
         )}
       >
         {!isSearchOpen ? (
-          <ClientOnly>
+          <>
             <Logo />
             <SearchBar onSearchOpen={() => setIsSearchOpen(true)} onSearch={handleSearch} />
             <UserMenu />
-          </ClientOnly>
+          </>
         ) : (
           <SearchBar
             isSearchOpen={isSearchOpen}

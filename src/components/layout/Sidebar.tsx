@@ -13,15 +13,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import { Bell, Home, Menu, MessageCircle, PlusSquare, Sprout, Star, ThumbsUp } from 'lucide-react'
+import { Bell, House, Menu, MessageCircle, PlusSquare, Sprout, Star, ThumbsUp } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '../ui/button'
 import { ModeToggle } from '../ui/mode-toggle'
 
-const sideNavItems = [
+export const sideMenus = [
   {
-    icon: Home,
+    icon: House,
     label: '发现',
     href: '/explore',
   },
@@ -37,7 +37,7 @@ const sideNavItems = [
   },
 ]
 
-const SideNavItem = ({
+const SideMenuItem = ({
   icon: Icon,
   label,
   href,
@@ -48,7 +48,6 @@ const SideNavItem = ({
   label: string // 导航项文本
   href: string // 导航项链接
   isActive?: boolean // 是否为当前活动项
-  hasChildren?: boolean // 是否有子菜单
   onClick?: () => void // 点击事件处理函数
 }) => {
   return (
@@ -172,13 +171,13 @@ const Sidebar = () => {
     >
       {/* 主导航组件: channel-list */}
       <ul className="m-0 min-h-auto list-none p-0">
-        {sideNavItems.map(naviItem => (
-          <SideNavItem
-            key={naviItem.href}
-            icon={naviItem.icon}
-            label={naviItem.label}
-            href={naviItem.href}
-            isActive={pathname === naviItem.href}
+        {sideMenus.map(sideMenu => (
+          <SideMenuItem
+            key={sideMenu.href}
+            icon={sideMenu.icon}
+            label={sideMenu.label}
+            href={sideMenu.href}
+            isActive={pathname === sideMenu.href}
           />
         ))}
         <div>

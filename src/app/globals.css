@@ -76,6 +76,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* 新增的亮色模式自定义颜色变量 */
+  --xhsc-color-primary-label: #333;
+  --xhsc-color-secondary-label: rgba(51, 51, 51, 0.8);
+  --xhsc-color-tertiary-label: rgba(51, 51, 51, 0.6);
+  --xhsc-color-background: #fff;
+  --xhsc-color-active-background: rgba(0, 0, 0, 0.03);
+  --xhsc-color-border: rgba(0, 0, 0, 0.08);
 }
 
 .dark {
@@ -110,6 +118,14 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* 新增的暗色模式自定义颜色变量 */
+  --xhsc-color-primary-label: #fff;
+  --xhsc-color-secondary-label: rgba(255, 255, 255, 0.8);
+  --xhsc-color-tertiary-label: rgba(255, 255, 255, 0.6);
+  --xhsc-color-background: #121212;
+  --xhsc-color-active-background: rgba(255, 255, 255, 0.05);
+  --xhsc-color-border: rgba(255, 255, 255, 0.1);
 }
 
 @layer base {
