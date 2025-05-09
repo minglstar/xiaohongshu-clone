@@ -2,10 +2,9 @@
 
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
-import ClientOnly from '../ClientOnly'
 import Logo from '../navigation/Logo'
-import SearchBar from '../navigation/SearchBar'
-import UserMenu from '../navigation/UserMenu'
+import SearchField from '../navigation/SearchField'
+import UserActionDropdown from '../navigation/UserActionDropdown'
 
 /**
  * 网站顶部导航栏组件
@@ -40,11 +39,11 @@ const Navbar = () => {
         {!isSearchOpen ? (
           <>
             <Logo />
-            <SearchBar onSearchOpen={() => setIsSearchOpen(true)} onSearch={handleSearch} />
-            <UserMenu />
+            <SearchField onSearchOpen={() => setIsSearchOpen(true)} onSearch={handleSearch} />
+            <UserActionDropdown />
           </>
         ) : (
-          <SearchBar
+          <SearchField
             isSearchOpen={isSearchOpen}
             onSearchClose={() => setIsSearchOpen(false)}
             onSearch={handleSearch}

@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react'
 
-interface ClientOnlyProps {
+interface ClientSideRendererProps {
   children: React.ReactNode
 }
 
-const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
+const ClientSideRenderer: React.FC<ClientSideRendererProps> = ({ children }) => {
   const [hasMounted, setHasMounted] = useState(false)
 
   useEffect(() => {
@@ -19,4 +19,4 @@ const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
   return <>{children}</>
 }
 
-export default ClientOnly
+export default ClientSideRenderer

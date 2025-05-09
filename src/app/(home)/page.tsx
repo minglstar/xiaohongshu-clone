@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { channels } from '@/components/layout/ChannelBar'
+import { channels } from '@/components/layout/ChannelNav'
 
 /**
  * 主页面组件

@@ -31,7 +31,7 @@ const menus = [
   },
 ]
 
-const MobileUserMenu = () => {
+const MobileUserActionDropdown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -120,13 +120,13 @@ const MobileUserMenu = () => {
  * 用户菜单组件
  * 使用 HoverCard 实现悬停菜单，解决闪动问题
  */
-const UserMenu = () => {
+const UserActionDropdown = () => {
   const showMobileMenu = () => {}
 
   return (
     <div className="relative">
       <div className="absolute top-1/2 right-2 -translate-y-1/2 md:hidden">
-        <MobileUserMenu />
+        <MobileUserActionDropdown />
       </div>
       <div className="flex flex-row items-center justify-between">
         {menus.map(menu => (
@@ -165,4 +165,4 @@ const UserMenu = () => {
   )
 }
 
-export default UserMenu
+export default UserActionDropdown

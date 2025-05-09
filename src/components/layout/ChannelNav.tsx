@@ -1,8 +1,7 @@
 'use client'
 
-import { cn } from '@/lib/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Button } from '../ui/button'
+import ChannelItem from '../navigation/ChannelItem'
 
 // 小红书频道URL格式: https://www.xiaohongshu.com/explore?channel_id=homefeed.[tag]
 // 我们使用相似的格式: /?channel_id=homefeed.[tag]
@@ -59,40 +58,10 @@ export const channels = [
 ]
 
 /**
- * 频道项组件
- * 显示单个频道按钮，处理选中状态和点击事件
- */
-const ChannelItem = ({
-  label,
-  isSelected,
-  onClick,
-}: {
-  label: string
-  isSelected?: boolean
-  onClick?: () => void
-}) => {
-  return (
-    <Button
-      variant="ghost"
-      onClick={onClick}
-      className={cn(
-        'cursor-pointer rounded-full text-[1rem] hover:bg-gray-100',
-        'dark:hover:bg-gray-800',
-        isSelected
-          ? 'bg-gray-100 font-semibold text-gray-700 dark:bg-gray-800 dark:text-white'
-          : 'font-normal text-gray-500 dark:text-gray-400'
-      )}
-    >
-      {label}
-    </Button>
-  )
-}
-
-/**
  * 频道导航栏组件
  * 显示所有频道并处理频道切换逻辑
  */
-const ChannelBar = ({ onItemClick }: { onItemClick?: () => void }) => {
+const ChannelNav = ({ onItemClick }: { onItemClick?: () => void }) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const currentChannelId = searchParams.get('channel_id') || 'homefeed_recommend'
@@ -116,4 +85,4 @@ const ChannelBar = ({ onItemClick }: { onItemClick?: () => void }) => {
   )
 }
 
-export default ChannelBar
+export default ChannelNav

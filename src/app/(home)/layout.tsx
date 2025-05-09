@@ -1,6 +1,6 @@
-import ClientOnly from '@/components/ClientOnly'
+import ClientOnly from '@/components/common/ClientSideRenderer'
 import { BottomMenu } from '@/components/layout/BottomMenu'
-import ChannelBar from '@/components/layout/ChannelBar'
+import ChannelBar from '@/components/layout/ChannelNav'
 import Navbar from '@/components/layout/Navbar'
 import Sidebar from '@/components/layout/Sidebar'
 

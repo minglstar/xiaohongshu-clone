@@ -1,11 +1,9 @@
 'use client'
 
-import React from 'react'
-import { sideMenus } from './Sidebar'
 import { User } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
-import Link from 'next/link'
+import BottomMenuItem from '../navigation/BottomMenuItem'
+import { sideMenus } from './Sidebar'
 
 const bottomMenus = [
   ...sideMenus,
@@ -15,39 +13,6 @@ const bottomMenus = [
     href: '/profile',
   },
 ]
-
-const BottomMenuItem = ({
-  icon: Icon,
-  label,
-  href,
-  isActive,
-  onClick,
-}: {
-  icon?: React.ElementType
-  label: string
-  href: string
-  isActive?: boolean
-  onClick?: () => void
-}) => {
-  return (
-    <Link
-      href={href}
-      onClick={onClick}
-      style={{ color: '--xhsc-color-primary-label' }}
-      className="flex h-[48px] grow-1 cursor-pointer items-center justify-center"
-    >
-      {Icon && (
-        <Icon
-          size={24}
-          className={cn(
-            isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-400'
-          )}
-        />
-      )}
-      <span className="ml-3 hidden text-[16px] sm:block">{label}</span>
-    </Link>
-  )
-}
 
 export const BottomMenu = () => {
   const pathname = usePathname()

@@ -12,7 +12,7 @@ import { Input } from '../ui/input'
  * 实现搜索框和搜索图标的布局
  * 使用固定高度40px，模仿小红书的搜索栏设计
  */
-const MainSearchBar = ({
+const MainSearchField = ({
   onSearch,
   className,
   value,
@@ -96,14 +96,14 @@ const MainSearchBar = ({
  * 支持深色模式和移动端响应式设计
  * 支持搜索框展开模式，完全替换导航栏内容
  */
-interface SearchBarProps {
+interface SearchFieldProps {
   isSearchOpen?: boolean
   onSearchOpen?: () => void
   onSearchClose?: () => void
   onSearch?: (value: string) => void
 }
 
-const SearchBar = ({ isSearchOpen, onSearchOpen, onSearchClose, onSearch }: SearchBarProps) => {
+const SearchField = ({ isSearchOpen, onSearchOpen, onSearchClose, onSearch }: SearchFieldProps) => {
   const [localSearchOpen, setLocalSearchOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
   const isMobileScreen = useMediaQuery('(max-width: 768px)')
@@ -167,7 +167,7 @@ const SearchBar = ({ isSearchOpen, onSearchOpen, onSearchClose, onSearch }: Sear
   if (searchOpen) {
     return (
       <div className="relative flex w-full items-center">
-        <MainSearchBar
+        <MainSearchField
           onSearch={handleSearch}
           className="relative w-full"
           value={searchValue}
@@ -194,7 +194,7 @@ const SearchBar = ({ isSearchOpen, onSearchOpen, onSearchClose, onSearch }: Sear
         )}
       >
         {/* 大屏幕搜索栏 */}
-        <MainSearchBar onSearch={handleSearch} value={searchValue} onChange={setSearchValue} />
+        <MainSearchField onSearch={handleSearch} value={searchValue} onChange={setSearchValue} />
       </div>
       {/* 移动端搜索图标 */}
       <div className="absolute top-1/2 right-20 -translate-y-1/2 md:hidden">
@@ -209,4 +209,4 @@ const SearchBar = ({ isSearchOpen, onSearchOpen, onSearchClose, onSearch }: Sear
   )
 }
 
-export default SearchBar
+export default SearchField
