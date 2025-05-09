@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import Logo from '../navigation/Logo'
 import SearchField from '../navigation/SearchField'
-import UserActionDropdown from '../navigation/UserActionDropdown'
+import UserActionNavigation from '../navigation/UserActionNavigation'
 
 /**
  * 网站顶部导航栏组件
@@ -40,7 +40,7 @@ const Navbar = () => {
           <>
             <Logo />
             <SearchField onSearchOpen={() => setIsSearchOpen(true)} onSearch={handleSearch} />
-            <UserActionDropdown />
+            <UserActionNavigation />
           </>
         ) : (
           <SearchField
