@@ -13,3 +13,118 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       String  @id @default(cuid())
+  username String  @unique
+  email    String? @unique
+  phone    String? @unique
+  avater   String?
+  bio      String? @db.Text
+
+  // 统计字段
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  // 关系
+  posts     Post[]
+  likes     Like[]
+  followers Follow[]
+  // followings Follow[]
+  comments  Comment[]
+}
+
+model Account {
+  id String @id @default(cuid())
+}
+
+model Post {
+  id          String      @id @default(cuid())
+  userId      String      @unique
+  title       String
+  content     String
+  imageUrls   PostImage[]
+  tags        PostTag[]
+  likes       Like[]
+  comments    Comment[]
+  location    String
+  isPublished Boolean
+
+  viewCount    Int @default(0)
+  likeCount    Int @default(0)
+  commentCount Int @default(0)
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  // 关系
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// 创建PostImage关联表, 符合1NF
+model PostImage {
+  id     String @id @default(cuid())
+  url    String
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model PostTag {
+  postId String @unique
+  tagId  String @unique
+
+  createdAt DateTime @default(now())
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
+}
+
+model Comment {
+  id              String  @id @default(cuid())
+  userId          String  @unique
+  postId          String  @unique
+  parentCommentId String?
+
+  content   String
+  likeCount Int    @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model Like {
+  userId String @unique
+  postId String @unique
+
+  // todo: 针对评论的点赞如何处理
+  // commentId String
+  // likeType String
+  // @@id([postId, commentId])
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@id([userId, postId])
+}
+
+model Follow {
+  followerId  String @unique
+  followingId String @unique
+
+  createAt DateTime @default(now())
+
+  follower  User @relation(fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation(fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@id([followerId, followingId])
+}
+
+model Tag {
+  // ? 这里的id可以用auto吗
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  PostTag     PostTag[]
+}
