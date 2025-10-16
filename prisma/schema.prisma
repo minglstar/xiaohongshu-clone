@@ -13,3 +13,251 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// ========================================
+// 核心实体
+// ========================================
+model User {
+  id            String    @id @default(cuid())
+  phone         String    @unique
+  nickname      String
+  email         String?
+  emailVerified DateTime?
+  avatar        String?
+  bio           String?
+
+  // 统计字段(反规范化,提升性能)
+  postsCount     Int @default(0)
+  followersCount Int @default(0)
+  followingCount Int @default(0)
+
+  // 统计字段
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  // 关系
+  posts      Post[]
+  comments   Comment[]
+  likes      Like[]
+  followers  Follow[]  @relation(name: "Follower")
+  followings Follow[]  @relation(name: "Following")
+
+  // 索引
+  @@index([phone])
+  @@map("users")
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @db.Text
+  image     String[]
+  published Boolean  @default(false)
+
+  // 统计字段(反规范化)
+  viewCount    Int @default(0)
+  likeCount    Int @default(0)
+  commentCount Int @default(0)
+  // todo: 收藏
+  // favoriteCount Int @default(0)
+
+  // 时间戳
+  /**
+   * /**
+   * /**
+   * /**
+   * /**
+   * /**
+   * /**
+   * /**
+   * /**
+   * /**
+   * /**
+   * 设计意图
+   * createdAt (创建时间)
+   * 含义: 数据库记录的创建时间
+   * 场景:
+   * 数据审计: "这条记录什么时候插入的?"
+   * 内部管理: "草稿箱中的文章按创建时间排序"
+   * publishedAt (发布时间)
+   * 含义: 内容对外公开的时间
+   * 场景:
+   * 用户可见的时间轴: "按发布时间排序的feed流"
+   * 定时发布: 先创建记录,设置未来的publishedAt
+   * 编辑不改变发布时间: 修改文章内容,publishedAt保持不变
+   */
+  createdAt   DateTime  @default(now()) // ! 记录创建时间
+  updatedAt   DateTime  @updatedAt
+  publishedAt DateTime? // ! 发布时间
+
+  // 外键
+  authorId String
+
+  // 关系
+  user     User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  likes    Like[]
+  postTags PostTag[]
+  comments Comment[]
+  // favorites   Favorite[]
+
+  //索引
+  @@index([authorId])
+  @@index([publishedAt])
+  @@index([authorId, publishedAt])
+  @@map("posts")
+}
+
+model Comment {
+  id      String @id @default(cuid())
+  content String
+
+  // 时间戳
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 外键
+  postId   String
+  authorId String
+  parentId String? // 支持评论回复
+
+  likeCount Int @default(0)
+
+  post    Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author  User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  // ! 评论回复, 自身的1:N关系
+  parent  Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies Comment[] @relation("CommentReplies")
+
+  // 索引
+  @@index([postId])
+  @@index([authorId])
+  @@index([parentId])
+  @@map("comments")
+}
+
+model Tag {
+  // ? 这里的id可以用auto吗
+  id          String  @id @default(cuid())
+  name        String  @unique // 防止重复, tag不能重名
+  description String?
+
+  // 统计
+  postCount Int @default(0)
+
+  // 时间戳
+  createdAt DateTime @default(now())
+
+  PostTag PostTag[]
+
+  @@map("tags")
+}
+
+// ========================================
+// 关联表 (多对多关系)
+// ========================================
+
+model Like {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // 外键
+  userId String
+  postId String
+
+  // todo: 针对评论的点赞如何处理
+  // commentId String
+  // likeType String
+  // @@id([postId, commentId])
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  // 唯一约束 (防止重复点赞)
+  @@unique([postId, userId])
+  // ? userId单一索引
+  @@index([userId])
+  @@map("likes")
+}
+
+model Follow {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // 外键
+  followerId  String
+  followingId String
+
+  follower  User @relation(name: "Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation(name: "Following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  // 唯一约束 (防止重复关注)
+  @@unique([followerId, followingId])
+  // ? followingId单一索引
+  @@index([followingId])
+  @@map("follows")
+}
+
+// 创建PostImage关联表, 符合1NF
+// model PostImage {
+//   id     String @id @default(cuid())
+//   url    String
+//   postId String
+//   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+// }
+
+model PostTag {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // 外键
+  postId String
+  tagId  String
+
+  // 关系
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  // 唯一约束
+  @@unique([postId, tagId])
+  @@index([tagId])
+  @@map("post_tags")
+}
+
+// ========================================
+// NextAuth.js 认证表 (可选)
+// ========================================
+
+/**
+ * model Account {
+ * id                String  @id @default(cuid())
+ * userId            String
+ * type              String
+ * provider          String
+ * providerAccountId String
+ * refresh_token     String? @db.Text
+ * access_token      String? @db.Text
+ * expires_at        Int?
+ * token_type        String?
+ * scope             String?
+ * id_token          String? @db.Text
+ * session_state     String?
+ * user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ * @@unique([provider, providerAccountId])
+ * @@map("accounts")
+ * }
+ * model Session {
+ * id           String   @id @default(cuid())
+ * sessionToken String   @unique
+ * userId       String
+ * expires      DateTime
+ * user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ * @@map("sessions")
+ * }
+ * model VerificationToken {
+ * identifier String
+ * token      String   @unique
+ * expires    DateTime
+ * @@unique([identifier, token])
+ * @@map("verification_tokens")
+ * }
+ */
