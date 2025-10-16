@@ -45,6 +45,3 @@ next-env.d.ts
 
 # temporary docs
 doc/
-
-# prisma generated client
-/src/generated/
